@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="tour_report" pageWidth="595" pageHeight="842"
+              columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20">
+
+    <queryString>
+        <![CDATA[
+            SELECT
+                a.assignment_id,
+                g.full_name AS guide_name,
+                g.language,
+                g.experience_years,
+                t.full_name AS tourist_name,
+                t.nationality,
+                s.tour_name,
+                s.location_name,
+                s.tour_date,
+                a.status AS assignment_status,
+                r.rating
+            FROM assignments a
+            JOIN schedules s ON a.schedule_id = s.schedule_id
+            JOIN guides g ON s.guide_id = g.guide_id
+            JOIN tourists t ON a.tourist_id = t.tourist_id
+            LEFT JOIN reviews r ON a.assignment_id = r.assignment_id
+            ORDER BY s.tour_date DESC
+        ]]>
+    </queryString>
+
+    <field name="assignment_id"     class="java.lang.Integer"/>
+    <field name="guide_name"        class="java.lang.String"/>
+    <field name="language"          class="java.lang.String"/>
+    <field name="experience_years"  class="java.lang.Integer"/>
+    <field name="tourist_name"      class="java.lang.String"/>
+    <field name="nationality"       class="java.lang.String"/>
+    <field name="tour_name"         class="java.lang.String"/>
+    <field name="location_name"     class="java.lang.String"/>
+    <field name="tour_date"         class="java.sql.Date"/>
+    <field name="assignment_status" class="java.lang.String"/>
+    <field name="rating"            class="java.lang.Integer"/>
+
+    <title>
+        <band height="60">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30"/>
+                <textElement>
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Tour Guide Management System]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="30" width="400" height="20"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <text><![CDATA[Tour Assignment Report]]></text>
+            </staticText>
+            <textField pattern="dd/MM/yyyy">
+                <reportElement x="400" y="30" width="155" height="20"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="25">
+            <staticText>
+                <reportElement x="0"   y="0" width="50"  height="25" backcolor="#009688" mode="Opaque"/>
+                <textElement><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="50"  y="0" width="100" height="25" backcolor="#009688" mode="Opaque"/>
+                <textElement><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Guide]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="0" width="100" height="25" backcolor="#009688" mode="Opaque"/>
+                <textElement><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Tourist]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="250" y="0" width="100" height="25" backcolor="#009688" mode="Opaque"/>
+                <textElement><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Tour]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="0" width="80"  height="25" backcolor="#009688" mode="Opaque"/>
+                <textElement><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Date]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="430" y="0" width="65"  height="25" backcolor="#009688" mode="Opaque"/>
+                <textElement><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Status]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="495" y="0" width="60"  height="25" backcolor="#009688" mode="Opaque"/>
+                <textElement><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Rating]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0"   y="0" width="50"  height="20"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{assignment_id}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="50"  y="0" width="100" height="20"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{guide_name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="100" height="20"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{tourist_name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="100" height="20"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{tour_name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="0" width="80"  height="20"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{tour_date}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="430" y="0" width="65"  height="20"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{assignment_status}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="495" y="0" width="60"  height="20"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{rating} != null ? $F{rating} + "/5" : "N/A"]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="20">
+            <staticText>
+                <reportElement x="0" y="0" width="300" height="20"/>
+                <textElement><font size="8"/></textElement>
+                <text><![CDATA[Tour Guide Management System - Confidential]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="450" y="0" width="105" height="20"/>
+                <textElement><font size="8"/></textElement>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>
