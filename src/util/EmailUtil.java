@@ -7,7 +7,7 @@ import java.util.Properties;
 public class EmailUtil {
 
     private static final String FROM_EMAIL = "sandevnireh@gmail.com";
-    private static final String PASSWORD   = "mklyaljrtwzkuanf";
+    private static final String PASSWORD   = "app-password";
 
     public static boolean sendAssignmentConfirmation(String toEmail,
                                                      String touristName,
