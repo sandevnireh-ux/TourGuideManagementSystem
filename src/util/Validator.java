@@ -20,7 +20,8 @@ public class Validator {
 
     public static boolean isPositiveInt(String value) {
         try {
-            return Integer.parseInt(value) > 0;
+            if (value == null) return false;
+            return Integer.parseInt(value.trim()) >= 0;
         } catch (NumberFormatException e) {
             return false;
         }
